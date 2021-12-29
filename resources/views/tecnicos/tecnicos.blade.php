@@ -2,7 +2,7 @@
 
 <div class="container">
     <h1>{{ $titulo }}</h1>
-    <a href="#" class="btn btn-primary">Agregar Técnico</a>
+    <a href="#" class="btn btn-success">Agregar Técnico</a>
 </div>
 
 <div class="container py-5 text-center">
@@ -26,7 +26,8 @@
                     <td>{{ $tecnico->mail }}</td>
                     <td>{{ $tecnico->telefono }}</td>
                     <td>
-                        <a href="#" class="btn btn-warning">Editar</a>
+                        <a href="{{ route('tecnicos.edit', $tecnico->idTecnico) }}" class="btn btn-warning">Editar</a>
+
                         <form action="#" class="d-inline">
                             @method('DELETE')
                             @csrf

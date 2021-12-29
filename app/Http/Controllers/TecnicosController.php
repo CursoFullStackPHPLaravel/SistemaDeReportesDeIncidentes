@@ -64,7 +64,18 @@ class TecnicosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tecnico = DB::select("SELECT * FROM Tecnicos where idTecnico = $id ");
+        $especialidades = DB::select("SELECT idEspecialidades as ID, nombreEspecialidad as Nombre FROM `Especialidades`
+        INNER JOIN Tecnico_Especialidad
+        ON Especialidades.idEspecialidades = Tecnico_Especialidad.idEspecialidad
+        AND Tecnico_Especialidad.idTecnico = $id ");
+
+        $parameters = [
+            'tecnico'=>$tecnico,
+            'especialidades'=>$especialidades
+        ];
+
+        return view('tecnicos.editTecnico', $parameters);
     }
 
     /**
@@ -87,6 +98,8 @@ class TecnicosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //Validar el parametro!!!
+        $query = DB::table('Tecnicos')->where('idTecnico', $id)->delete();
+
     }
 }
