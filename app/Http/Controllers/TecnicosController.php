@@ -64,18 +64,24 @@ class TecnicosController extends Controller
      */
     public function edit($id)
     {
-        $tecnico = DB::select("SELECT * FROM Tecnicos where idTecnico = $id ");
+        if (is_numeric($id) == false){
+            return response('', 404);
+        }
+
+        $tecnico = DB::table('Tecnicos')->where('idTecnico', '=', $id)->first();
         $especialidades = DB::select("SELECT idEspecialidades as ID, nombreEspecialidad as Nombre FROM `Especialidades`
         INNER JOIN Tecnico_Especialidad
         ON Especialidades.idEspecialidades = Tecnico_Especialidad.idEspecialidad
         AND Tecnico_Especialidad.idTecnico = $id ");
+
+        var_dump($tecnico);
 
         $parameters = [
             'tecnico'=>$tecnico,
             'especialidades'=>$especialidades
         ];
 
-        return view('tecnicos.editTecnico', $parameters);
+        return view('tecnicos.edit-form', $parameters);
     }
 
     /**
