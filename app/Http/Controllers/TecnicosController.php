@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class TecnicosController extends Controller
 {
@@ -31,7 +32,7 @@ class TecnicosController extends Controller
      */
     public function create()
     {
-        //
+        return view('tecnicos.agregar-tecnico');
     }
 
     /**
@@ -42,7 +43,22 @@ class TecnicosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|max:150',
+            'cuil' => 'required'
+        ]);
+
+        $nombre = $request->input('nombre');
+        $cuil = $request->input('cuil');
+        $mail = $request->input('mail');
+        $telefono = $request->input('telefono');
+
+        DB::insert('INSERT INTO Tecnicos (nombre, cuil, mail, telefono)
+        VALUES (?, ?, ?, ?)', [$nombre, $cuil, $mail, $telefono]);
+
+        Session::flash('mensaje', 'Registro creado con exito');
+
+        return redirect()->route('tecnicos.index');
     }
 
     /**
@@ -74,7 +90,7 @@ class TecnicosController extends Controller
         ON Especialidades.idEspecialidades = Tecnico_Especialidad.idEspecialidad
         AND Tecnico_Especialidad.idTecnico = $id ");
 
-        var_dump($tecnico);
+        //var_dump($tecnico);
 
         $parameters = [
             'tecnico'=>$tecnico,
@@ -93,7 +109,23 @@ class TecnicosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|max:150',
+            'cuil' => 'required'
+        ]);
+
+        $nombre = $request->input('nombre');
+        $cuil = $request->input('cuil');
+        $mail = $request->input('mail');
+        $telefono = $request->input('telefono');
+
+        DB::update('UPDATE Tecnicos
+        SET nombre = :nombre, cuil = :cuil, mail = :mail, telefono = :tel
+        WHERE idTecnico = :id ',
+        ['nombre' => $nombre, 'cuil'=>$cuil, 'mail'=>$mail, 'tel'=>$telefono, 'id'=>$id]);
+
+        return redirect()->route('tecnicos.index');
+
     }
 
     /**
@@ -104,8 +136,14 @@ class TecnicosController extends Controller
      */
     public function destroy($id)
     {
-        //Validar el parametro!!!
-        $query = DB::table('Tecnicos')->where('idTecnico', $id)->delete();
+        if (is_numeric($id) == false){
+            return response('', 404);
+        }
 
+        DB::delete('DELETE FROM Tecnicos WHERE idTecnico = :id', ['id'=>$id]);
+
+        Session::flash('mensaje', 'Registro eliminado con exito');
+
+        return redirect()->route('tecnicos.index');
     }
 }
