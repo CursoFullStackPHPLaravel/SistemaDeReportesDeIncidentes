@@ -1,0 +1,72 @@
+/*Header*/
+#barra-navegacion {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: auto 5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.btnSlider{
+    color: #FFF;
+    font-size: 15pt;
+    font-family: 'Quicksand', sans-serif;
+    letter-spacing: 1px;
+    padding: 10px 50px;
+    border: 1px solid rgb(75, 72, 72);
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 31px;
+    text-decoration: none;
+    transition: .5s all;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+body {
+    background: #181818;
+    color: #fff;
+    line-height: 1.6;
+    font-family: 'Quicksand', sans-serif;
+    padding: 0 1.5em;
+    margin: 35px;
+}
+
+/* Tecnicos*/
+.pregunta{
+    color: white;
+    text-align: center;
+    margin: 35px;
+}
+#tarjetas{
+    display: flex;
+    justify-content: center;
+    background: none;
+    padding: 20px;
+}
+.tarjeta img{
+    width: 100%;
+}
+.tarjeta{
+    width: 20%;
+    margin: 30px 30px 0 30px;
+    background: #fff;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 1px 1px 11px 0px #00000030;
+}
+h2{
+    font-size: 14px;
+    color: rgb(119, 103, 103);
+}
+.profesion{
+    color: rgb(156, 114, 114);
+}
+.parrafo{
+    line-height: 30px;
+    color: #222222;
+
+}

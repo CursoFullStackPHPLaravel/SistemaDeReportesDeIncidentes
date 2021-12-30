@@ -16,6 +16,11 @@ use App\Http\Controllers\TecnicosController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::resource('tecnicos', TecnicosController::class);
+
+// Vistas
+Route::view('/login', 'login')->name('login');
+Route::view('/registro', 'registro')->name('register');
+Route::view('/sesion', 'sesion')->name('sesion');
